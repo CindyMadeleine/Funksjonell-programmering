@@ -22,13 +22,17 @@ er skrevet i prefix. Parantesene er også anvendt korrekt, da vi har skrevet et 
 Dette skyldes at:
 ((4+2)*(5)) = (6*(5)) = 
 
+Problemet er at (5) gjør at man prøver å kalle på 5 som en prosedyre. Dette fungerer naturligvis ikke fordi 5 ikke er en prosedyre. Du skriver "I scheme anvender
+vi paranteser for å erklære at det er en prosedyre som foregår, altså at en utfører en operasjon med enten tall eller tekst.
+Merk at parenteser i Scheme på flere måter og at prosedyrer kan ta andre typer argumenter enn tall og tekst!
+
 Kommentar:
 
 DrRacket utfører operasjonene i  normal order, det vil si at den utfører operasjonene på den parantesen til høyre. Dette takler den bra, fordi den har operatorer
 inne I parantesen og kan dermed utføre operasjoner på begge tallene. Den klager derimot på den til venstre, fordi vi anvender en parantes ukorrekt. I scheme anvender
-vi paranteser for å erklære at det er en prosedyre som foregår, altså at en utfører en operasjon med enten tall eller tekst. I uttrykket ovenfor står tallet 5 alene
-i parantesen. Om uttrykket skulle ha fungert slik vi ønsket så hadde vi vært nødt til å skrive (*(+ 4 2) 5) eller ((*(+ 4 2) (+ 5)) 
-|#
+vi paranteser for å erklære at det er en prosedyre som foregår, altså at en utfører en operasjon med enten tall eller tekst. Merk at parenteser i Scheme på flere måter 
+og at prosedyrer kan ta andre typer argumenter enn tall og tekst! I uttrykket ovenfor står tallet 5 alene i parantesen. Om uttrykket skulle ha fungert slik vi ønsket 
+så hadde vi vært nødt til å skrive (*(+ 4 2) 5) eller ((*(+ 4 2) (+ 5)) |#
 
 ;Oppgave 1c: 
 
@@ -42,8 +46,9 @@ Dette skyldes at:
 (*(4 + 2) 5) = Error!
 
 kommentar:
-Vi har operatoren I en infix order, det vil si mellom to dataelementer. Dette gjør at Dr Racket ikke vet hva vi skal gjøre med tallet 4. Om vi derimot hadde skrevet
-pluss i prefix order(se beskrivelse fra 1a), hadde den ikke klaget. For at dette skulle ha fungert er vi nødt til å skrive (* (+ 4 2) 5).|#
+
+Dette gjør at Dr Racket ikke vet hva vi skal gjøre med tallet 4, da tallet blir angitt som en prosedyre. Om vi derimot hadde skrevet 
+pluss i prefix order(se beskrivelse fra 1a), hadde den ikke klaget om vi f.eks hadde skrevet (* (+ 4 2) 5).|#
 
 ;Oppgave 1d:
 
@@ -126,7 +131,12 @@ Syntaktisk feil:
 "paff!"
 (zero? (1 – 1)))
 
-#f
+;Kan forenkles slik:
+
+(define (sign x)
+  (or (and (positive? x) 1)
+      (and (negative? x) -1)
+      0))
 
 #|
 Kommentar:
@@ -194,9 +204,11 @@ I-am-undefined til å være noe enda. Alt som ikke er definert til å være noe 
 
 ;Oppgave 3c:
 
-#|Metoden gir opphavet til en rekursiv metode, fordi vi ønsker å oppnå et bestemt resultat ved å gjenta en funksjon flere ganger. Dette skyldes at vi ønsker at y skal bli null,
+#|Metoden gir opphavet til en rekursiv prosess, fordi vi ønsker å oppnå et bestemt resultat ved å gjenta en funksjon flere ganger. Dette skyldes at vi ønsker at y skal bli null,
 ved å gjentatte ganger senke verdien til y med 1, samtidig som vi øker verdien til x med 1. En annen årsak til at den er rekursiv er at den kaller på seg selv. Dette skjer dersom
-if er usann. Vi ser derfor at den benytter seg selv til sin egen utførelse, slik at hver operasjon må fullføres før hver operasjon fullføres. Basistilfellet i rekursjonen er if(zero? y) x.|#
+if er usann. Vi ser derfor at den benytter seg selv til sin egen utførelse, slik at hver operasjon må fullføres før hver operasjon fullføres. Basistilfellet i rekursjonen er 
+if(zero? y) x. Selv om metoden er rekursiv er prosessen iterativ, ettersom i ikke behøver å vente på returverdien til det rekursive kallet og derav ikke får noen 
+backtracking slik en gjør ved en rekursiv prosess. |#
 
 ;Iterativ:
 
